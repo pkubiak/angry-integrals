@@ -1,0 +1,111 @@
+.holder {
+    margin: 5px;
+    position: absolute;;
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    padding: 10px;
+    /* transform: perspective(1000px) translateZ(0px) rotateY(0deg); */
+
+    transition: left 1s, top 1s, opacity 1s;
+}
+.holder.flip .front {
+    transform: perspective(1000px) translateZ(0px) rotateY(180deg);
+}
+.holder.flip .back {
+    transform: perspective(1000px) translateZ(0px) rotateY(0deg);
+}
+
+.front {
+    width: 160px;
+    height: 160px;
+    line-height: 160px;
+    font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    background: black;
+    color: white;
+    border-radius: 8px;
+    position: absolute;top:0;left:0;;
+    
+    transform-origin: center center;
+    transition-property: transform;
+    transition-duration: 1s;
+
+    transform: perspective(1000px) translateX(0px) rotateY(0deg);
+    backface-visibility: hidden;
+}
+.back {
+    width:160px;height: 160px;
+    background: black;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 160px;
+    font-size: 120px;
+    color: white;
+    position: absolute;top:0;left:0;;
+    transform: perspective(1000px) translateX(0px) rotateY(180deg);
+    transform-origin: center center;
+    transition-property: transform;
+    transition-duration: 1s;
+    backface-visibility: hidden;
+}
+
+.back::before {
+    content: "?";
+}
+
+
+.row {
+    display:block;
+    white-space: nowrap;
+}
+
+#board {
+    /* border: 2px solid red; */
+    /* display:inline-block; */
+    position: absolute;
+    /* background: orange; */
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.matched {
+    opacity: 0.0;
+}
+
+#hud {
+    height: 64px;
+    margin-top: -84px;
+    display: flex;
+}
+#hud div {
+    flex-grow: 1;
+    line-height: 64px;
+    padding: 0 30px;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+}
+
+#score_cpu {
+    text-align: right;
+    
+}
+body, html {
+    background: url(blackboard.jpg);
+    background-size: cover;
+    width:100%;height:100%;;
+    margin:0;
+    background-position: center center;;
+    font-family: 'Permanent Marker', cursive;
+}
+
+
+h1, h2 {
+    color: white;
+    text-align: center;
+}
+
+h1{font-size: 120px;}
+h2 { font-size: 80px;}
