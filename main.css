@@ -17,10 +17,11 @@
 }
 
 .front {
+    overflow: hidden;;
     width: 160px;
     height: 160px;
     line-height: 160px;
-    font-size: 90px;
+    font-size: 36px;
     font-weight: bold;
     text-align: center;
     background: black;

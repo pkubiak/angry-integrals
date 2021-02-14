@@ -4,9 +4,9 @@ let MATCHING = {}, PLAYER_SCORE, CPU_SCORE, TIME, CURRENT='PLAYER';
 function init() {
     createBoard(HEIGHT, WIDTH);
     setTiles(HEIGHT, WIDTH);
-    // flipAll(4, 5);
-    // for(let i=0;i<50;i++)
-    //     setTimeout(function(){randomShuffle(4, 5)}, 100*i+50*4*5+500)
+    flipAll(4, 5);
+    for(let i=0;i<50;i++)
+        setTimeout(function(){randomShuffle(4, 5)}, 100*i+50*4*5+500)
 }
 function $(query) {
     return document.querySelector(query);
@@ -71,6 +71,22 @@ function createBoard(height, width) {
     board.style.height = (180*height) + 'px';
 }
 
+function randomIntegral() {
+    let a = Math.floor(10*Math.random());
+    let b = a + 1 + Math.floor(10*Math.random());
+    let fn, res;
+    if(Math.random()<0.3) {
+        res = (b*b*b-a*a*a)/3;
+        fn = "x^2";
+    }else {
+        res = 0.5*(b*b - a*a);
+        fn = "x";
+    }
+    
+    let text = "\\int_{"+a+"}^{"+b+"} \\! "+fn+" \\, \\mathrm{d}x.";
+    return [text, res];
+}
+
 
 function setTiles(height, width) {
     let ids = [];
@@ -79,15 +95,21 @@ function setTiles(height, width) {
             ids.push('t_'+i+'_'+j);
     ids.sort((a,b)=>(Math.random()-0.5));
 
-    for(let i=0; i<ids.length; i+=1) {
-        $('#'+ids[i]+' .front').innerText = Math.floor(i/2);
-        $('#'+ids[i]).addEventListener('click', flip);
-    }
-
     for(let i=0;i<ids.length;i+=2) {
+        let [text, res] = randomIntegral();
+
         MATCHING[ids[i]] = ids[i+1];
         MATCHING[ids[i+1]] = ids[i];
+
+        $('#'+ids[i]+' .front').innerText = '$$'+text+'$$';//;'Math.floor(i);
+        $('#'+ids[i+1]+' .front').innerText = res.toFixed(2);//Math.floor(i);
+        // $('#'+ids[i+1]+' .front').classList.add('bigger');
+
+        $('#'+ids[i]).addEventListener('click', flip);
+        $('#'+ids[i+1]).addEventListener('click', flip);
+
     }
+    MathJax.typeset();
 }
 
 function flipAll(height, width) {
